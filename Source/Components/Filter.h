@@ -22,7 +22,7 @@ class Filter {
         sampleRate = newSampleRate;
     }
 
-    void setParameters (const Parameters& newParameters) {
+    void setParameters(const Parameters& newParameters) {
         parameters = newParameters;
 
         if (!parameters.enabled) return;
