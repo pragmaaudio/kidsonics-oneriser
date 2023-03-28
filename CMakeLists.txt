@@ -6,7 +6,7 @@ set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
 
 # General settings
 set(PLUGIN_NAME "OneRiser")
-set(COMPANY_NAME "OneRiser (open-source")
+set(COMPANY_NAME "OneRiser (open-source)")
 set(COMPANY_CODE ORos) # (requires at least 1 uppercase)
 set(PLUGIN_DATA ${PLUGIN_NAME}Data)
 
