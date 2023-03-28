@@ -1,7 +1,7 @@
 #pragma once
 #include "pa.h"
 
-// Stereo reverb class, based on the JUCE implementation
+// Stereo reverb processor (simply a collection of comb filters)
 
 namespace pa::dsp {
 
