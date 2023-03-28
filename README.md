@@ -3,9 +3,11 @@
 On MacOS, you may drag-and-drop the plugin files into the following locations:
 
 VST3s:
+
 /Library/Audio/Plug-Ins/VST3
 
 AUs:
+
 /Library/Audio/Plug-Ins/Components
 
 (Tip: you can paste the above addresses directly into Finder: press Cmd+Shift+G when in Finder, then paste the address into the pop-up window.)
