@@ -1,6 +1,6 @@
 ## WHERE TO INSTALL PLUGINS ON MACOS
 
-On MacOS, you may drag-and-drop the plugin files into the following locations:
+On MacOS, you may drag-and-drop the plugin files (found in the "VST3 : AU (macOS only)" directory) into the following locations:
 
 VST3s:
 
