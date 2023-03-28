@@ -116,27 +116,27 @@ class RiserProcessor {
     // calculate the value mappings, and set the processors' values
     void calculateValues() {
         // flanger — map the wet, frequency, feedback
-        flangerParams.wet      = mapValue(pa::math::ExpRounder(flangerAmount, 0.3f), 0, 0.75f);
+        flangerParams.wet      = mapValue(pa::math::expRounder(flangerAmount, 0.3f), 0, 0.75f);
         flangerParams.freq     = mapValue(flangerAmount, 20.0f, 280.0f);
         flangerParams.feedback = mapValue(flangerAmount, 0.0f, 0.55f);
 
         // filters — map the cutoff and q for both filters
-        lowpassParams.cutoff  = mapValue(pa::math::ExpRounder(filterAmount, 0.3f), 20000.0f, 4000.0f);
-        lowpassParams.q       = mapValue(pa::math::ExpRounder(filterAmount, -0.6f), 0.5f, 0.85f);
-        highpassParams.cutoff = mapValue(pa::math::ExpRounder(filterAmount, -0.3f), 10.0f, 200.0f);
-        highpassParams.q      = mapValue(pa::math::ExpRounder(filterAmount, -0.5f), static_cast<float>(M_SQRT1_2), 1.0f);
+        lowpassParams.cutoff  = mapValue(pa::math::expRounder(filterAmount, 0.3f), 20000.0f, 4000.0f);
+        lowpassParams.q       = mapValue(pa::math::expRounder(filterAmount, -0.6f), 0.5f, 0.85f);
+        highpassParams.cutoff = mapValue(pa::math::expRounder(filterAmount, -0.3f), 10.0f, 200.0f);
+        highpassParams.q      = mapValue(pa::math::expRounder(filterAmount, -0.5f), static_cast<float>(M_SQRT1_2), 1.0f);
 
         // reverb — map the mix, size, width and stereo spread
         reverbParams.mix    = mapValue(reverbAmount, 0.0f, 0.75f);
         reverbParams.size   = mapValue(reverbAmount, 0.01f, 0.45f);
         reverbParams.width  = mapValue(reverbAmount, 1.0f, 0.6f);
-        reverbParams.spread = mapValue(pa::math::ExpRounder(reverbAmount, 0.3f), 0.5f, 1.5f);
+        reverbParams.spread = mapValue(pa::math::expRounder(reverbAmount, 0.3f), 0.5f, 1.5f);
 
         //          //          //          //          //
 
         // set parameter objects
         flanger[0].setParameters(flangerParams, 0.0f);
-        flanger[1].setParameters(flangerParams, 7.0f * pa::math::ExpRounder(flangerAmount, -0.4f));
+        flanger[1].setParameters(flangerParams, 7.0f * pa::math::expRounder(flangerAmount, -0.4f));
 
         for (size_t i = 0; i < 2; i++) {
             lowpass[i].setParameters(lowpassParams);

@@ -5,8 +5,8 @@
  * well as some trigonometric approximations.
  *
  * The built-in std/JUCE stuff is certainly better in most cases. By no
- * means are these meant to be more optimised or robust... but it's fun to
- * make them yourself :)
+ * means are these meant to be more optimised or robust — it's just fun
+ * to make them yourself!
  *
  * The processors for this device are included in separate files:
  * CombFilter.h
@@ -54,7 +54,7 @@ static inline FloatType mod1(const FloatType& input) {
                 // Trig approximations
 // Wrap input within -pi - pi, used by the approximations here
 template <typename FloatType>
-static inline void WrapPi(FloatType& input, bool useHalfPi = false) noexcept {
+static inline void wrapPi(FloatType& input, bool useHalfPi = false) noexcept {
     static constexpr auto pi = static_cast<FloatType>(M_PI);
 
     if (useHalfPi)
@@ -65,8 +65,8 @@ static inline void WrapPi(FloatType& input, bool useHalfPi = false) noexcept {
 
 // Fast sin() approximation
 template <typename FloatType>
-[[maybe_unused]] static FloatType FastSin(FloatType x) noexcept {
-    WrapPi<FloatType>(x);
+[[maybe_unused]] static FloatType fastSin(FloatType x) noexcept {
+    wrapPi<FloatType>(x);
     const double x2 = x * x;
     const double num = -x * (-11511339840 + x2 * (1640635920 + x2 * (-52785432 + x2 * 479249)));
     const double den = 11511339840 + x2 * (277920720 + x2 * (3177720 + x2 * 18361));
@@ -75,8 +75,8 @@ template <typename FloatType>
 
 // Fast cos() approximation
 template <typename FloatType>
-[[maybe_unused]] static FloatType FastCos(FloatType x) noexcept {
-    WrapPi<FloatType>(x);
+[[maybe_unused]] static FloatType fastCos(FloatType x) noexcept {
+    wrapPi<FloatType>(x);
     const double x2 = x * x;
     const double num = -(-39251520 + x2 * (18471600 + x2 * (-1075032 + 14615 * x2)));
     const double den = 39251520 + x2 * (1154160 + x2 * (16632 + x2 * 127));
@@ -85,8 +85,8 @@ template <typename FloatType>
 
 // Fast tan() approximation
 template <typename FloatType>
-static FloatType FastTan(FloatType x) noexcept {
-    WrapPi<FloatType>(x, true);
+static FloatType fastTan(FloatType x) noexcept {
+    wrapPi<FloatType>(x, true);
     const double x2 = x * x;
     const double num = x * (-135135 + x2 * (17325 + x2 * (-378 + x2)));
     const double den = -135135 + x2 * (62370 + x2 * (-3150 + 28 * x2));
@@ -96,7 +96,7 @@ static FloatType FastTan(FloatType x) noexcept {
                 // Interpolation
 // Linear interpolation (clamped: use 0 <= t <= 1)
 template <typename FloatType>
-inline static FloatType LinearInterp(const FloatType& a, const FloatType& b, FloatType t) {
+inline static FloatType linearInterp(const FloatType& a, const FloatType& b, FloatType t) {
     if (t <= 0) return a;
     if (t >= 1) return b;
 
@@ -105,13 +105,13 @@ inline static FloatType LinearInterp(const FloatType& a, const FloatType& b, Flo
 
 // Shorthand for the above
 template <typename FloatType>
-inline static FloatType Lerp(const FloatType& a, const FloatType& b, FloatType t) {
-    return LinearInterp(a, b, t);
+inline static FloatType lerp(const FloatType& a, const FloatType& b, FloatType t) {
+    return linearInterp(a, b, t);
 }
 
 // Cubic interpolation (useSmoother = true uses catmull-rom method)
 template <typename FloatType>
-static FloatType CubicInterp(const FloatType& a, const FloatType& b, const FloatType& c,
+static FloatType cubicInterp(const FloatType& a, const FloatType& b, const FloatType& c,
                              const FloatType& d, FloatType t, const bool& useCatmullRom = false) {
     if (t <= 0) return b;
     if (t >= 1) return c;
@@ -135,7 +135,7 @@ static FloatType CubicInterp(const FloatType& a, const FloatType& b, const Float
 // A rounded exponential transfer function
 // Higher c values mean greater values toward zero (s-curve), and vice versa
 template <typename FloatType>
-static FloatType ExpRounder(const FloatType &input, const FloatType& curveValue) {
+static FloatType expRounder(const FloatType &input, const FloatType& curveValue) {
     FloatType x = clamp<FloatType>(input, -1.0, 1.0),
               c = clamp<FloatType>(curveValue, -1.0, 1.0);
 
@@ -377,8 +377,7 @@ class RingBuffer {
         FloatType readOffset = static_cast<FloatType>(sampleRate) * delay;
         uint readIndex = getReadIndex(readOffset);
 
-        return pa::math::LinearInterp(buffer[readIndex], buffer[readIndex - 1],
-                                              pa::math::mod1(readOffset));
+        return pa::math::linearInterp(buffer[readIndex], buffer[readIndex - 1], pa::math::mod1(readOffset));
     }
 
     FloatType getFromBufferCubicInterp() {
@@ -394,7 +393,7 @@ class RingBuffer {
                   s3 = buffer[readIndex - 1],
                   s4 = buffer[readIndex - 2];
 
-        return pa::math::CubicInterp(s1, s2, s3, s4, pa::math::mod1(readOffset), true);
+        return pa::math::cubicInterp(s1, s2, s3, s4, pa::math::mod1(readOffset), true);
     }
 
     uint getReadIndex(const uint& readOffset) const {
@@ -412,10 +411,10 @@ class RingBuffer {
     }
 };
 
-template <typename FloatType, InterpolationType Interp = noInterp>
+/*template <typename FloatType, InterpolationType Interp = noInterp>
 class SmoothValue {
 
-};
+};*/
 
 } // end namespace dsp
 } // end namespace pa

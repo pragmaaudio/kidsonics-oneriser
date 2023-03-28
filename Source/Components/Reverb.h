@@ -172,7 +172,7 @@ class Reverb {
     void setMixValues() {
         auto mixAmount = pa::math::clamp<float>(parameters.mix, 0.0f, 1.0f);
         dry = 1.0f - mixAmount;
-        wet = pa::math::ExpRounder(mixAmount, 0.8f) * 1.55f;
+        wet = pa::math::expRounder(mixAmount, 0.8f) * 1.55f;
     }
 
     void setDamping() {

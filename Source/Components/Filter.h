@@ -50,7 +50,7 @@ class Filter {
         if (p.cutoff != co.prevCutoff || sampleRate != co.prevSampleRate) {
             jassert(sampleRate > 0);
 
-            co.k = pa::math::FastTan(M_PI * (p.cutoff / sampleRate));
+            co.k = pa::math::fastTan(M_PI * (p.cutoff / sampleRate));
             co.k2 = co.k * co.k;
 
             co.prevCutoff = p.cutoff;
