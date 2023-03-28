@@ -5,8 +5,8 @@
  * well as some trigonometric approximations.
  *
  * The built-in std/JUCE stuff is certainly better in most cases. By no
- * means are these meant to be more optimised or robust — it's just fun
- * to make them yourself!
+ * means are these meant to be more optimised or robust... but it's fun to
+ * make them yourself :)
  *
  * The processors for this device are included in separate files:
  * CombFilter.h
